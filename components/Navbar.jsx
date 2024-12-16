@@ -1,22 +1,21 @@
+"use client";
 
 import {
     NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
-    NavigationMenuTrigger,
-    NavigationMenuViewport,
-    navigationMenuTriggerStyle
-} from "@/components/ui/navigation-menu"
+    navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 
-import { ModeToggle } from '@/components/ui/ThemeSwitcher'
+import { ModeToggle } from "@/components/ui/ThemeSwitcher";
+import { cn } from "@/lib/utils";
 
-import Link from "next/link"
-
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
+    const pathname = usePathname();
 
     return (
         <div className="flex justify-between">
@@ -25,7 +24,12 @@ const Navbar = () => {
                     <NavigationMenuList>
                         <NavigationMenuItem>
                             <Link href="/button" legacyBehavior passHref>
-                                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                                <NavigationMenuLink
+                                    className={cn(
+                                        navigationMenuTriggerStyle(),
+                                        pathname === "/button" && "!bg-green-300"
+                                    )}
+                                >
                                     Button Page
                                 </NavigationMenuLink>
                             </Link>
@@ -33,7 +37,13 @@ const Navbar = () => {
 
                         <NavigationMenuItem>
                             <Link href="/accordion" legacyBehavior passHref>
-                                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                                <NavigationMenuLink
+                                    className={cn(
+                                        navigationMenuTriggerStyle(),
+                                        pathname === "/accordion" &&
+                                        "!bg-green-300"
+                                    )}
+                                >
                                     Accordion Page
                                 </NavigationMenuLink>
                             </Link>
@@ -45,11 +55,7 @@ const Navbar = () => {
                 <ModeToggle />
             </div>
         </div>
+    );
+};
 
-
-
-
-    )
-}
-
-export default Navbar
+export default Navbar;
